@@ -25,6 +25,24 @@ export default function App() {
     setEnteredNumber(""); // Reset the input field
   }
 
+  // Multiplication function
+  function multiply() {
+    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
+    setCurrentResult((prevResult) => prevResult * chosenNumber); // Multiply with the current result
+    setEnteredNumber(""); // Reset the input field
+  }
+
+  // Division function
+  function divide() {
+    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
+    if (chosenNumber !== 0) {
+      setCurrentResult((prevResult) => prevResult / chosenNumber); // Divide by the current result
+    } else {
+      alert("Cannot divide by zero!"); // Alert for division by zero
+    }
+    setEnteredNumber(""); // Reset the input field
+  }
+
   return (
     <View style={styles.container}>
       <Text style={[styles.text, styles.title]}>
@@ -49,10 +67,10 @@ export default function App() {
             <Button title="-" onPress={subtract} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="*" />
+            <Button title="*" onPress={multiply} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="/" />
+            <Button title="/" onPress={divide} />
           </View>
         </View>
         <Text style={styles.text}>Result: {currentResult}</Text>
