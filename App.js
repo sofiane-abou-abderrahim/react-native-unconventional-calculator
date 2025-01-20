@@ -102,10 +102,17 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
-    marginVertical: 10,
+    marginVertical: 8,
+    borderRadius: 28,
+    margin: 8,
+    overflow: "hidden",
   },
   buttonContainer: {
-    marginHorizontal: 5,
+    width: 80,
+    height: 60,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    elevation: 2,
   },
   text: {
     textAlign: "center",
