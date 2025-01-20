@@ -52,6 +52,12 @@ export default function App() {
     setEnteredNumber(""); // Reset the input field
   }
 
+  function reset() {
+    setEnteredNumber("");
+    setCurrentResult(0);
+    setCalcDescription("");
+  }
+
   return (
     <View style={styles.container}>
       <Text style={[styles.text, styles.title]}>
@@ -84,6 +90,12 @@ export default function App() {
         </View>
         <Text style={styles.text}>{calcDescription}</Text>
         <Text style={styles.text}>Result: {currentResult}</Text>
+        {/* Center the reset button */}
+        <View style={styles.centeredContainer}>
+          <View style={styles.resetButtonContainer}>
+            <Button title="Reset" onPress={reset} color="#FF6347" />
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -114,6 +126,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     elevation: 2,
   },
+  centeredContainer: {
+    alignItems: "center", // Center horizontally
+    marginTop: 20, // Add spacing from previous elements
+  },
+  resetButtonContainer: {
+    width: 120, // Optional: Adjust width for better appearance
+  },
+
   text: {
     textAlign: "center",
     fontSize: 18,
