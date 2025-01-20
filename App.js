@@ -18,6 +18,13 @@ export default function App() {
     setEnteredNumber(""); // Reset the input field
   }
 
+  // Subtraction function
+  function subtract() {
+    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
+    setCurrentResult((prevResult) => prevResult - chosenNumber); // Subtract from the current result
+    setEnteredNumber(""); // Reset the input field
+  }
+
   return (
     <View style={styles.container}>
       <Text style={[styles.text, styles.title]}>
@@ -39,7 +46,7 @@ export default function App() {
             <Button title="+" onPress={add} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="-" />
+            <Button title="-" onPress={subtract} />
           </View>
           <View style={styles.buttonContainer}>
             <Button title="*" />
