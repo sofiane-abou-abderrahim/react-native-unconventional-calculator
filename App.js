@@ -5,16 +5,22 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 export default function App() {
   const [enteredNumber, setEnteredNumber] = useState(""); // To manage user input
   const [currentResult, setCurrentResult] = useState(0); // To manage the result
+  const [calcDescription, setCalcDescription] = useState(""); // To manage operation description
 
   // Handling user input
   function numberInputHandler(inputText) {
     setEnteredNumber(inputText.replace(/[^0-9]/g, "")); // Filter numbers only
   }
 
+  function createAndWriteOutput(operator, resultBeforeCalc, calcNumber) {
+    setCalcDescription(`${resultBeforeCalc} ${operator} ${calcNumber}`); // Create the description of the operation
+  }
+
   // Addition function
   function add() {
     const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
     setCurrentResult((prevResult) => prevResult + chosenNumber); // Add to the current result
+    createAndWriteOutput("+", currentResult, enteredNumber);
     setEnteredNumber(""); // Reset the input field
   }
 
@@ -22,6 +28,7 @@ export default function App() {
   function subtract() {
     const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
     setCurrentResult((prevResult) => prevResult - chosenNumber); // Subtract from the current result
+    createAndWriteOutput("-", currentResult, enteredNumber);
     setEnteredNumber(""); // Reset the input field
   }
 
@@ -29,6 +36,7 @@ export default function App() {
   function multiply() {
     const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
     setCurrentResult((prevResult) => prevResult * chosenNumber); // Multiply with the current result
+    createAndWriteOutput("*", currentResult, enteredNumber);
     setEnteredNumber(""); // Reset the input field
   }
 
@@ -40,6 +48,7 @@ export default function App() {
     } else {
       alert("Cannot divide by zero!"); // Alert for division by zero
     }
+    createAndWriteOutput("/", currentResult, enteredNumber);
     setEnteredNumber(""); // Reset the input field
   }
 
@@ -73,6 +82,7 @@ export default function App() {
             <Button title="/" onPress={divide} />
           </View>
         </View>
+        <Text style={styles.text}>{calcDescription}</Text>
         <Text style={styles.text}>Result: {currentResult}</Text>
       </View>
     </View>
