@@ -16,40 +16,56 @@ export default function App() {
     setCalcDescription(`${resultBeforeCalc} ${operator} ${calcNumber}`); // Create the description of the operation
   }
 
+  function calculateResult(calculationType) {
+    if (
+      calculationType !== "ADD" &&
+      calculationType !== "SUBSTRACT" &&
+      calculationType !== "MULTIPLY" &&
+      calculationType !== "DIVIDE"
+    ) {
+      return;
+    }
+
+    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
+    if (calculationType === "ADD") {
+      setCurrentResult((prevResult) => prevResult + chosenNumber); // Add to the current result
+      createAndWriteOutput("+", currentResult, enteredNumber);
+    } else if (calculationType === "SUBSTRACT") {
+      setCurrentResult((prevResult) => prevResult - chosenNumber); // Subtract from the current result
+      createAndWriteOutput("-", currentResult, enteredNumber);
+    } else if (calculationType === "MULTIPLY") {
+      setCurrentResult((prevResult) => prevResult * chosenNumber); // Multiply with the current result
+      createAndWriteOutput("*", currentResult, enteredNumber);
+    } else if (calculationType === "DIVIDE") {
+      if (chosenNumber !== 0) {
+        setCurrentResult((prevResult) => prevResult / chosenNumber); // Divide by the current result
+      } else {
+        alert("Cannot divide by zero!"); // Alert for division by zero
+      }
+      createAndWriteOutput("/", currentResult, enteredNumber);
+    }
+
+    setEnteredNumber(""); // Reset the input field
+  }
+
   // Addition function
   function add() {
-    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
-    setCurrentResult((prevResult) => prevResult + chosenNumber); // Add to the current result
-    createAndWriteOutput("+", currentResult, enteredNumber);
-    setEnteredNumber(""); // Reset the input field
+    calculateResult("ADD");
   }
 
   // Subtraction function
   function subtract() {
-    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
-    setCurrentResult((prevResult) => prevResult - chosenNumber); // Subtract from the current result
-    createAndWriteOutput("-", currentResult, enteredNumber);
-    setEnteredNumber(""); // Reset the input field
+    calculateResult("SUBSTRACT");
   }
 
   // Multiplication function
   function multiply() {
-    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
-    setCurrentResult((prevResult) => prevResult * chosenNumber); // Multiply with the current result
-    createAndWriteOutput("*", currentResult, enteredNumber);
-    setEnteredNumber(""); // Reset the input field
+    calculateResult("MULTIPLY");
   }
 
   // Division function
   function divide() {
-    const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
-    if (chosenNumber !== 0) {
-      setCurrentResult((prevResult) => prevResult / chosenNumber); // Divide by the current result
-    } else {
-      alert("Cannot divide by zero!"); // Alert for division by zero
-    }
-    createAndWriteOutput("/", currentResult, enteredNumber);
-    setEnteredNumber(""); // Reset the input field
+    calculateResult("DIVIDE");
   }
 
   function reset() {
