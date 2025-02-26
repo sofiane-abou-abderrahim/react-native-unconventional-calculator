@@ -19,7 +19,7 @@ export default function App() {
   function calculateResult(calculationType) {
     if (
       calculationType !== "ADD" &&
-      calculationType !== "SUBSTRACT" &&
+      calculationType !== "SUBTRACT" &&
       calculationType !== "MULTIPLY" &&
       calculationType !== "DIVIDE"
     ) {
@@ -27,45 +27,27 @@ export default function App() {
     }
 
     const chosenNumber = parseInt(enteredNumber) || 0; // Convert input to a number (default to 0)
+    let operator;
     if (calculationType === "ADD") {
       setCurrentResult((prevResult) => prevResult + chosenNumber); // Add to the current result
-      createAndWriteOutput("+", currentResult, enteredNumber);
-    } else if (calculationType === "SUBSTRACT") {
+      operator = "+";
+    } else if (calculationType === "SUBTRACT") {
       setCurrentResult((prevResult) => prevResult - chosenNumber); // Subtract from the current result
-      createAndWriteOutput("-", currentResult, enteredNumber);
+      operator = "-";
     } else if (calculationType === "MULTIPLY") {
       setCurrentResult((prevResult) => prevResult * chosenNumber); // Multiply with the current result
-      createAndWriteOutput("*", currentResult, enteredNumber);
+      operator = "*";
     } else if (calculationType === "DIVIDE") {
       if (chosenNumber !== 0) {
         setCurrentResult((prevResult) => prevResult / chosenNumber); // Divide by the current result
       } else {
         alert("Cannot divide by zero!"); // Alert for division by zero
       }
-      createAndWriteOutput("/", currentResult, enteredNumber);
+      operator = "/";
     }
 
+    createAndWriteOutput(operator, currentResult, enteredNumber);
     setEnteredNumber(""); // Reset the input field
-  }
-
-  // Addition function
-  function add() {
-    calculateResult("ADD");
-  }
-
-  // Subtraction function
-  function subtract() {
-    calculateResult("SUBSTRACT");
-  }
-
-  // Multiplication function
-  function multiply() {
-    calculateResult("MULTIPLY");
-  }
-
-  // Division function
-  function divide() {
-    calculateResult("DIVIDE");
   }
 
   function reset() {
@@ -92,16 +74,22 @@ export default function App() {
         />
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <Button title="+" onPress={add} />
+            <Button title="+" onPress={calculateResult.bind(this, "ADD")} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="-" onPress={subtract} />
+            <Button
+              title="-"
+              onPress={calculateResult.bind(this, "SUBTRACT")}
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="*" onPress={multiply} />
+            <Button
+              title="*"
+              onPress={calculateResult.bind(this, "MULTIPLY")}
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="/" onPress={divide} />
+            <Button title="/" onPress={calculateResult.bind(this, "DIVIDE")} />
           </View>
         </View>
         <Text style={styles.text}>{calcDescription}</Text>
